@@ -2,66 +2,66 @@ import section from "./section.js"
 
 (async (f) => {
     console.time("Time of loading: ")
-    window.addEventListener('load', async () => {
-        /* run zone */
-        const t = f()
-        /* getelementbyid */
-        const dataDocument = {
-            bodyContainer: document.getElementById("_bodyContainer"),
-            navigation: document.getElementById("navigation"),
-            bodyScroll: document.getElementById("_bodyScroll"),
-            appMain: document.getElementById("_appMain"),
-            mainContent: document.getElementById("mainContent"),
-            mainScroll: document.getElementById("_mainScroll"),
-            layerFixedA: document.getElementById("layerFixedA"),
-            layerFixedB: document.getElementById("layerFixedB"),
-            getSection: [
-                document.getElementById("section_head"),
-                document.getElementById("section_a"),
-                document.getElementById("section_b"),
-                document.getElementById("section_d"),
-                document.getElementById("section_e")
-            ]
-        }
+    // window.addEventListener('load', async () => {
+    /* run zone */
+    const t = f()
+    /* getelementbyid */
+    const dataDocument = {
+        bodyContainer: document.getElementById("_bodyContainer"),
+        navigation: document.getElementById("navigation"),
+        bodyScroll: document.getElementById("_bodyScroll"),
+        appMain: document.getElementById("_appMain"),
+        mainContent: document.getElementById("mainContent"),
+        mainScroll: document.getElementById("_mainScroll"),
+        layerFixedA: document.getElementById("layerFixedA"),
+        layerFixedB: document.getElementById("layerFixedB"),
+        getSection: [
+            document.getElementById("section_head"),
+            document.getElementById("section_a"),
+            document.getElementById("section_b"),
+            document.getElementById("section_d"),
+            document.getElementById("section_e")
+        ]
+    }
 
-        let apiData = {}
-        let apiDataKey = Object.keys(t.API.external.preload)
+    let apiData = {}
+    let apiDataKey = Object.keys(t.API.external.preload)
 
-        for (let i = 0; i < apiDataKey.length; i++) {
-            await t.func.getApiData(t.API.external.preload[apiDataKey[i]]).then((response) => {
-                if (response.status == 200) {
-                    console.log("API Success: " + t.API.external.preload[apiDataKey[i]])
-                    return response.json()
-                } else {
-                    console.log("API Error: " + response.statusText)
-                }
-            }).then((res) => {
-                apiData[apiDataKey[i]] = res
-            }).catch((err) => {
-                console.log("API Error: " + err)
-                apiData[apiDataKey[i]] = false
-            })
-        }
+    for (let i = 0; i < apiDataKey.length; i++) {
+        await t.func.getApiData(t.API.external.preload[apiDataKey[i]]).then((response) => {
+            if (response.status == 200) {
+                console.log("API Success: " + t.API.external.preload[apiDataKey[i]])
+                return response.json()
+            } else {
+                console.log("API Error: " + response.statusText)
+            }
+        }).then((res) => {
+            apiData[apiDataKey[i]] = res
+        }).catch((err) => {
+            console.log("API Error: " + err)
+            apiData[apiDataKey[i]] = false
+        })
+    }
 
-        console.time("preloadImg")
-        let assetsImg = apiData['assets']
-        let assetsImgKey = Object.keys(assetsImg)
-        for (let i = 0; i < assetsImgKey.length; i++) {
-            await t.func.loadImage(assetsImg[assetsImgKey[i]])
-        }
-        console.timeEnd("preloadImg")
+    console.time("preloadImg")
+    let assetsImg = apiData['assets']
+    let assetsImgKey = Object.keys(assetsImg)
+    for (let i = 0; i < assetsImgKey.length; i++) {
+        await t.func.loadImage(assetsImg[assetsImgKey[i]])
+    }
+    console.timeEnd("preloadImg")
 
-        let navBrand = dataDocument.navigation.querySelector(".navBrand")
-        let navImg = document.createElement("img")
-        navImg.src = t.func.findAssetsApi(apiData.assets.logo, "03")
-        navBrand.appendChild(navImg)
+    let navBrand = dataDocument.navigation.querySelector(".navBrand")
+    let navImg = document.createElement("img")
+    navImg.src = t.func.findAssetsApi(apiData.assets.logo, "03")
+    navBrand.appendChild(navImg)
 
-        await section(apiData, dataDocument, t)
-        // window.addEventListener("resize", async () => {
-        //     await section(apiData, dataDocument, t)
-        // })
-        /* run zone */
-    })
+    await section(apiData, dataDocument, t)
+    // window.addEventListener("resize", async () => {
+    //     await section(apiData, dataDocument, t)
+    // })
+    /* run zone */
+    // })
 })(() => {
     const func = {
         loadImage: async (url) => {
