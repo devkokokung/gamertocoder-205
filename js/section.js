@@ -283,12 +283,13 @@ export default async function (apiData, dataDocument, t) {
 
             const handleWheel = (event) => {
                 let isDontScroll = false
-                for (let j = 0; j < event.path.length - 3; j++) {
-                    if (/(isDontScroll)/.test(typeof event.path[j].classList.value == 'undefined' ? "null" : event.path[j].classList.value)) {
+                let eventPath = event.path || (event.composedPath && event.composedPath())
+                for (let j = 0; j < eventPath.length - 3; j++) {
+                    if (/(isDontScroll)/.test(typeof eventPath[j].classList.value == 'undefined' ? "null" : eventPath[j].classList.value)) {
                         isDontScroll = true
                         break
                     }
-                    if (j == event.path.length - 4) {
+                    if (j == eventPath.length - 4) {
                         if (isDontScroll == false) {
                             if (event.deltaY < 0) {
                                 console.log("scroll up")
