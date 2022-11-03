@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+    <title>Garena Blockman GO</title>
+    <link rel="icon" href="images/assets/logo/02.png" type="image/x-icon">
+
+    <!-- Preload -->
+    <link rel="preload" as="style" href="./css/global.css">
+    <link rel="preload" as="style" href="./css/fonts.css">
+    <link rel="preload" as="style" href="./css/layers.css">
+    <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+        integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="modulepreload" as="script" href="./js/global.js">
+
+    <link rel="stylesheet" href="./css/global.css">
+    <link rel="stylesheet" href="./css/layers.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+        integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body class="_body">
+    <div id="_bodyContainer">
+        <!--
+            Navigation 👇
+        -->
+        <nav id="navigation" class="navbar isDontScroll">
+            <div class="navContainer">
+                <div class="navBackground"></div>
+                <div class="navForeground">
+                    <div class="navBrand">
+                    </div>
+                    <div class="navMenu">
+                        <div class="navMenu-Btn">
+                            <i class="fa-sharp fa-solid fa-bars"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <div id="_bodyScroll" class="_bodyScroll">
+            <!--  
+                Splash Screen 👇
+            -->
+            <div class="app_splashScreen">
+                <div class="app_splashScreenContainer">
+                    <div class="splashscreen">
+                        <!-- <div class="splash_video">
+                            <video autoplay playsinline loop muted>
+                                <source type="video/webm" src="./images/splash-animate.webm">
+                                </source>
+                            </video>
+                        </div> -->
+                        <div class="splash_text">
+                            <span class="splash_text_point font-pressstart">Loading</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--  
+                Main 👇
+            -->
+            <div class="app_Main" id="_appMain">
+                <div class="app_MainContainer">
+                    <!-- Content  -->
+                    <div id="mainContent" class="mainContent stop-scroll">
+                        <div id="_mainScroll" class="app_MainScroll">
+                            <!-- Home -->
+                            <header id="section_head" class="appSection section_header">
+                                <div class="appSectionContainer">
+                                    <div class="appSectionBackground">
+                                        <div class="section_header_bg" ></div>
+                                    </div>
+                                    <div class="appSectionForeground">
+                                        <div class="appSectionForegroundContainer">
+                                            <div class="section_header_grid1">
+                                                <div class="section_header_bg_characters">
+                                                    <div class="section_header_bg_charactersContainer jsAnimatedOnTransformSlide"
+                                                        data-bf-translateY-px="120" data-active-translateY-px="0"
+                                                        data-af-translateY-px="-120">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="section_header_grid2">
+                                                <div class="section_header_grid2Container">
+                                                    <div class="section_header_grid2_banner">
+                                                        <img class="logo-web" src="./images/assets/logo/01.png"
+                                                            alt="banner">
+                                                        <!-- <img class="logo-mobile" src="./images/assets/logo/02.png" alt="banner"> -->
+                                                    </div>
+                                                    <div class="section_header_grid2_text">
+                                                        <div class="text_head">
+                                                            <!-- <span>PLAY</span> -->
+                                                            <span class="textHeader"></span>
+                                                            <!-- <span>ENJOY</span> -->
+                                                            <div class="text-i-animate"></div>
+                                                        </div>
+                                                        <div class="text_des">
+                                                            ใน Blockman GO มีเรื่องราวใหม่ ๆ
+                                                            และน่าตื่นเต้นรอให้คุณไปค้นพบอยู่ทุกวัน
+                                                            ร่วมผจญภัยและเสี่ยงภัยไปกับมินิเกมนับไม่ถ้วนจากทุกประเภท!
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </header>
+                            <!-- Introduce: What's Blockman GO? -->
+                            <section id="section_a" class="appSection section_A">
+                                <div class="appSectionContainer">
+                                    <div class="appSectionBackground">
+                                        <div class="section_A_bg"></div>
+                                        <div class="section_A_bg_gradient-top"></div>
+                                    </div>
+                                    <div class="appSectionForeground">
+                                        <div class="appSectionForegroundContainer">
+                                            <div class="appSectionForeground_grid1">
+                                                <div class="appSectionForeground_grid1Container">
+                                                    <div class="section_A_grid1-text">
+                                                        <div class="text_head">Blockman GO<br> คืออะไร?
+                                                        </div>
+                                                        <div class="text_des"><b>Blockman GO</b>
+                                                            เกมบนมือถือที่ให้บริการฟรีที่เชิญชวนผู้เล่นมาพบกับความสนุกผ่านมินิเกม
+                                                            และปลดปล่อยความคิดสร้างสรรค์ในการสร้างคอนเทนต์มากมายผ่านระบบ
+                                                            Editor และแชร์ให้กับผู้เล่นทั่วโลก</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="appSectionForeground_grid2">
+                                                <div class="appSectionForeground_grid2Container">
+                                                    <div class="section_A_grid2_frame isDontScroll jsAnimatedOnTransformSlide"
+                                                        data-bf-translateY-px="120" data-active-translateY-px="0"
+                                                        data-af-translateY-px="-120">
+                                                        <iframe src="https://www.youtube-nocookie.com/embed/h7u0exUj7gw"
+                                                            title="YouTube video player" frameborder="0"
+                                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                            allowfullscreen></iframe>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                            <!-- Minigames list -->
+                            <section id="section_b" class="appSection section_B">
+                                <div class="appSectionContainer">
+                                    <div class="appSectionBackground">
+                                        <div class="section_B_bg"></div>
+                                    </div>
+                                    <div class="appSectionForeground">
+                                        <div class="appSectionForegroundContainer">
+                                            <div class="appSectionForeground_grid1">
+                                                <div class="appSectionForeground_grid1Container">
+                                                    <div class="appSectionForeground_grid1-gallery jsAnimatedOnTransformSlide"
+                                                        data-bf-translateY-px="120" data-active-translateY-px="0"
+                                                        data-af-translateY-px="-120">
+                                                        <div class="appSectionForeground_grid1-galleryContainer">
+                                                            <div
+                                                                class="appSectionForeground_grid1-galleryScroll isDontScroll">
+                                                                <div class="appSectionForeground_grid1-galleryImg">
+                                                                    <div
+                                                                        class="appSectionForeground_grid1-galleryImgBlock" style="cursor: wait;">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="appSectionForeground_grid1-galleryImg">
+                                                                    <div
+                                                                        class="appSectionForeground_grid1-galleryImgBlock" style="cursor: wait;">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="appSectionForeground_grid1-galleryImg">
+                                                                    <div
+                                                                        class="appSectionForeground_grid1-galleryImgBlock" style="cursor: wait;">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="appSectionForeground_grid1-galleryImg">
+                                                                    <div
+                                                                        class="appSectionForeground_grid1-galleryImgBlock" style="cursor: wait;">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="appSectionForeground_grid1-galleryImg">
+                                                                    <div
+                                                                        class="appSectionForeground_grid1-galleryImgBlock" style="cursor: wait;">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="appSectionForeground_grid1-galleryImg">
+                                                                    <div
+                                                                        class="appSectionForeground_grid1-galleryImgBlock" style="cursor: wait;">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="appSectionForeground_grid1-galleryImg">
+                                                                    <div
+                                                                        class="appSectionForeground_grid1-galleryImgBlock" style="cursor: wait;">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="appSectionForeground_grid1-galleryImg">
+                                                                    <div
+                                                                        class="appSectionForeground_grid1-galleryImgBlock" style="cursor: wait;">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="appSectionForeground_grid1-galleryImg">
+                                                                    <div
+                                                                        class="appSectionForeground_grid1-galleryImgBlock" style="cursor: wait;">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="appSectionForeground_grid2">
+                                                <div class="appSectionForeground_grid2Container">
+                                                    <div class="section_B_grid2-text">
+                                                        <div class="text_head">เล่นกับเพื่อน ทุกที่ ทุกเวลา</div>
+                                                        <div class="text_des">Bed Wars, Egg Wars, Sky Block, และเกมอื่น
+                                                            ๆ จะสนุกที่สุดเมื่อเล่นกับเพื่อน
+                                                            ปรับให้เหมาะกับการเล่นในโทรศัพท์ตอนนี้คุณสามารถร่วมเล่นกับผู้เล่นกว่าล้านคนทั่วโลกได้จากทุกที่และทุกเมื่อ
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                            <!-- Blockman Editer
+                            <section class="appSection section_C">
+                                <div class="appSectionContainer">
+                                    <div class="appSectionBackground"></div>
+                                    <div class="appSectionForeground">
+                                    </div>
+                                </div>
+                            </section> -->
+                            <!-- Overview Images -->
+                            <section id="section_d" class="appSection section_D">
+                                <div class="appSectionContainer">
+                                    <div class="appSectionBackground">
+                                        <div class="section_D_bg"></div>
+                                    </div>
+                                    <div class="appSectionForeground">
+                                        <div class="appSectionForegroundContainer">
+                                            <div class="appSectionForeground_grid1">
+                                                <div class="appSectionForeground_grid1Container">
+                                                    <div class="appSectionForeground_grid1Container">
+                                                        <div class="section_D_grid1-text">
+                                                            <div class="text_head">มาร่วมผจญภัยไปด้วยกัน!</div>
+                                                            <div class="text_des">
+                                                                สัมผัสการผจญภัยครั้งใหม่กับความสนุกไม่รู้จบได้ที่
+                                                                <b>Blockman GO</b>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="appSectionForeground_grid2">
+                                                <div class="appSectionForeground_grid2Container">
+                                                    <div class="appSectionForeground_grid2-carousel jsAnimatedOnTransformSlide"
+                                                        data-bf-translateY-px="120" data-active-translateY-px="0"
+                                                        data-af-translateY-px="-120">
+                                                        <div class="carousel">
+                                                            <div class="carouselContainer">
+                                                                <div class="carousel-ShowImg">
+                                                                    <div
+                                                                        class="carousel-ShowImgContainer isDontScroll">
+                                                                        <div class="carousel-prev">
+                                                                            <div class="carousel-prevContainer">
+                                                                                <div class="carousel-prev-btn">
+                                                                                    <i
+                                                                                        class="fa-solid fa-chevron-left"></i>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="carousel-imgSet">
+                                                                            <div class="carousel-imgSetContainer">
+                                                                                <div class="carousel-imgSetScroll">
+                                                                                    <!-- <div class="carousel-img">
+                                                                                        <img src="https://cdngarenanow-a.akamaihd.net/webth/cdn/garena/gamertocoder/bedwars/bedwars_01.png"
+                                                                                            alt="" />
+                                                                                    </div> -->
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="carousel-next">
+                                                                            <div class="carousel-nextContainer">
+                                                                                <div class="carousel-next-btn">
+                                                                                    <i
+                                                                                        class="fa-solid fa-chevron-right"></i>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="carousel-gallery">
+                                                                    <div class="carousel-galleryContainer">
+                                                                        <div class="carousel-galleryScroll isDontScroll">
+                                                                            <!-- <div class="carousel-galleryScroll-galleryImg">
+                                                                                <div class="carousel-galleryScroll-galleryImgBlock">
+                                                                                    <img src="https://cdngarenanow-a.akamaihd.net/webth/cdn/garena/gamertocoder/bedwars/logo.png"
+                                                                                        alt="">
+                                                                                    <div class="foreground-black">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div> -->
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                            <!-- Download Btn -->
+                            <section id="section_e" class="appSection section_E">
+                                <div class="appSectionContainer">
+                                    <div class="appSectionBackground">
+                                        <div class="section_E_bg"></div>
+                                    </div>
+                                    <div class="appSectionForeground">
+                                        <div class="appSectionForegroundContainer">
+                                            <div class="section_E-text">
+                                                <div class="text_head">โหลดเลย!<br>Garena Blockman GO</div>
+                                            </div>
+                                            <div class="section_E-btn-download">
+                                                <div class="section_E-btn-downloadContainer">
+                                                    <div class="btn-download">
+                                                        <a href="https://apps.apple.com/app/id1571913622"
+                                                            target="_blank">
+                                                            <img src="./images/appstore2.png">
+                                                        </a>
+                                                    </div>
+                                                    <div class="btn-download">
+                                                        <a href="https://play.google.com/store/apps/details?id=com.app.blockmango"
+                                                            target="_blank">
+                                                            <img src="./images/googlePlay2.png">
+                                                        </a>
+                                                    </div>
+                                                    <div class="btn-download">
+                                                        <a href="https://pc.blockmanmobile.com/" target="_blank">
+                                                            <img src="./images/windows.png">
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Layer Fixed -->
+        <div id="layerFixedA" style="display: none;">
+
+        </div>
+        <div id="layerFixedB" style="display: none;">
+
+        </div>
+
+        <!-- Scripts -->
+        <script type="module" src="./js/global.js"></script>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,159 @@
+/* Poppins */
+@font-face {
+    font-family: 'Poppins';
+    src: url('./../fonts/Poppins/Poppins-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Poppins';
+    font-style: italic;
+    src: url('./../fonts/Poppins/Poppins-Italic.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Poppins';
+    font-weight: 600;
+    src: url('./../fonts/Poppins/Poppins-SemiBold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Poppins';
+    font-weight: 600;
+    font-style: italic;
+    src: url('./../fonts/Poppins/Poppins-SemiBoldItalic.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Poppins';
+    font-weight: bold;
+    src: url('./../fonts/Poppins/Poppins-Bold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Poppins';
+    font-weight: bold;
+    font-style: italic;
+    src: url('./../fonts/Poppins/Poppins-BoldItalic.ttf') format('truetype');
+}
+
+/* Barlow */
+@font-face {
+    font-family: 'Barlow';
+    font-weight: 300;
+    src: url('./../fonts/Barlow/BarlowCondensed-Light.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Barlow';
+    font-weight: 300;
+    font-style: italic;
+    src: url('./../fonts/Barlow/BarlowCondensed-LightItalic.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Barlow';
+    src: url('./../fonts/Barlow/BarlowCondensed-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Barlow';
+    font-style: italic;
+    src: url('./../fonts/Barlow/BarlowCondensed-Italic.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Barlow';
+    font-weight: bold;
+    src: url('./../fonts/Barlow/BarlowCondensed-Bold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Barlow';
+    font-weight: bold;
+    font-style: italic;
+    src: url('./../fonts/Barlow/BarlowCondensed-BoldItalic.ttf') format('truetype');
+}
+
+/* Noto Sans Thai */
+@font-face {
+    font-family: 'Noto Sans Thai';
+    src: url('./../fonts/NotoSansThai/NotoSansThai-Regular.ttf') format('truetype');
+    unicode-range: U+0E00–U+0E7F;
+}
+
+/* 
+@font-face {
+    font-family: 'Noto Sans Thai';
+    font-style: italic;
+    src: url('./../fonts/NotoSansThai/NotoSansThai-Regular.ttf') format('truetype');
+} */
+
+@font-face {
+    font-family: 'Noto Sans Thai';
+    font-weight: bold;
+    src: url('./../fonts/NotoSansThai/NotoSansThai-Bold.ttf') format('truetype');
+    unicode-range: U+0E00–U+0E7F;
+}
+
+/* 
+@font-face {
+    font-family: 'Noto Sans Thai';
+    font-weight: bold;
+    font-style: italic;
+    src: url('./../fonts/NotoSansThai/NotoSansThai-Bold.ttf') format('truetype');
+} */
+
+/* Kanit */
+@font-face {
+    font-family: 'Kanit';
+    src: url('./../fonts/Kanit/Kanit-Regular.ttf') format('truetype');
+    unicode-range: U+0E00–U+0E7F;
+}
+
+@font-face {
+    font-family: 'Kanit';
+    font-style: italic;
+    src: url('./../fonts/Kanit/Kanit-Italic.ttf') format('truetype');
+    unicode-range: U+0E00–U+0E7F;
+}
+
+@font-face {
+    font-family: 'Kanit';
+    font-weight: 600;
+    src: url('./../fonts/Kanit/Kanit-SemiBold.ttf') format('truetype');
+    unicode-range: U+0E00–U+0E7F;
+}
+
+@font-face {
+    font-family: 'Kanit';
+    font-weight: 600;
+    font-style: italic;
+    src: url('./../fonts/Kanit/Kanit-SemiBoldItalic.ttf') format('truetype');
+    unicode-range: U+0E00–U+0E7F;
+}
+
+@font-face {
+    font-family: 'Kanit';
+    font-weight: bold;
+    src: url('./../fonts/Kanit/Kanit-Bold.ttf') format('truetype');
+    unicode-range: U+0E00–U+0E7F;
+}
+
+@font-face {
+    font-family: 'Kanit';
+    font-weight: bold;
+    font-style: italic;
+    src: url('./../fonts/Kanit/Kanit-BoldItalic.ttf') format('truetype');
+    unicode-range: U+0E00–U+0E7F;
+}
+
+@font-face {
+    font-family: 'PressStart2P';
+    src: url('./../fonts/PressStart2P/PressStart2P-Regular.ttf') format('truetype');
+}
+
+
+.font-pressstart {
+    font-family: 'PressStart2P';
+    font-weight: 400;
+}
