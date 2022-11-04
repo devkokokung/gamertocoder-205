@@ -87,33 +87,33 @@ async (apiData, dataDocument, t) => {
     let eleIO = new IntersectionObserver((e) => {
         if (e[0].isIntersecting == true) {
             grid1GalleryContainer.innerHTML = ""
+            console.warn("added")
             grid1GalleryContainer.appendChild(galleryScroll)
             eleIO.disconnect(grid1Gallery)
         }
     })
     eleIO.observe(grid1Gallery)
+    // for (let data of apiData.minigames) {
+    //     let galleryImg = document.createElement("div")
+    //     let galleryBlock = document.createElement("div")
+    //     let imgEle = document.createElement("img")
+    //     let fgBlack = document.createElement("div")
 
-    for (let data of apiData.minigames) {
-        let galleryImg = document.createElement("div")
-        let galleryBlock = document.createElement("div")
-        let imgEle = document.createElement("img")
-        let fgBlack = document.createElement("div")
+    //     galleryImg.classList.add("appSectionForeground_grid1-galleryImg")
+    //     galleryBlock.classList.add("appSectionForeground_grid1-galleryImgBlock")
+    //     fgBlack.classList.add("foreground-black")
 
-        galleryImg.classList.add("appSectionForeground_grid1-galleryImg")
-        galleryBlock.classList.add("appSectionForeground_grid1-galleryImgBlock")
-        fgBlack.classList.add("foreground-black")
+    //     imgEle.src = data.icon
+    //     imgEle.setAttribute('alt', data.name)
 
-        imgEle.src = data.icon
-        imgEle.setAttribute('alt', data.name)
+    //     fgBlack.innerHTML = (`<div class="text-head">${data.name}</div>`)
 
-        fgBlack.innerHTML = (`<div class="text-head">${data.name}</div>`)
+    //     galleryBlock.appendChild(imgEle)
+    //     galleryBlock.appendChild(fgBlack)
+    //     galleryImg.appendChild(galleryBlock)
 
-        galleryBlock.appendChild(imgEle)
-        galleryBlock.appendChild(fgBlack)
-        galleryImg.appendChild(galleryBlock)
-
-        galleryScroll.appendChild(galleryImg)
-    }
+    //     galleryScroll.appendChild(galleryImg)
+    // }
 
 },
 async (apiData, dataDocument, t) => {
@@ -169,12 +169,13 @@ const changeSection = (du, dataDocument, sectionNo, handleWheel, handleSlideStar
     if (du == "up") {
         elePrev = dataDocument.getSection[sectionNo + 1]
         eleNext = dataDocument.getSection[sectionNo]
-        scrollToHeight = scrollYNow - elePrev.offsetHeight
+        scrollToHeight = scrollYNow - elePrev.getBoundingClientRect().height
     } else if (du == "down") {
         elePrev = dataDocument.getSection[sectionNo - 1]
         eleNext = dataDocument.getSection[sectionNo]
-        scrollToHeight = scrollYNow + eleNext.offsetHeight
+        scrollToHeight = scrollYNow + eleNext.getBoundingClientRect().height
     }
+
 
     // let scrollToHeight = document.body.getBoundingClientRect().height * sectionNo
     // scrollToHeight = window.innerHeight * sectionNo
@@ -208,23 +209,32 @@ const changeSection = (du, dataDocument, sectionNo, handleWheel, handleSlideStar
     //     }
     // }, false)
 
-    let isEemovedEvent = false, startScroll
+    // let isEemovedEvent = false, startScroll
 
     dataDocument.mainScroll.addEventListener("transitionstart", function msHandleTransitionStart(e) {
-        animate.changeSection(du, elePrev, eleNext)
+        let eventPath = e.path || (e.composedPath && e.composedPath())
+        if (eventPath[0] == dataDocument.mainScroll) {
+            animate.changeSection(du, elePrev, eleNext)
+            console.log("transition start")
+            // dataDocument.mainScroll.removeEventListener('transitionstart', msHandleTransitionStart)
+        }
+    }, { once: true })
 
-        dataDocument.mainScroll.addEventListener("transitionend", function msHandleTransitionEnd(h) {
+    dataDocument.mainScroll.addEventListener("transitionend", function msHandleTransitionEnd(e) {
+        let eventPath = e.path || (e.composedPath && e.composedPath())
+        if (eventPath[0] == dataDocument.mainScroll) {
             setTimeout(() => {
+                console.log("transition end")
                 window.addEventListener('wheel', handleWheel);
                 window.addEventListener('touchstart', handleSlideStart)
                 window.addEventListener('touchend', handleSlideEnd)
-                dataDocument.mainScroll.removeEventListener('transitionrun', msHandleTransitionStart)
-                dataDocument.mainScroll.removeEventListener('transitionend', msHandleTransitionEnd)
+                // dataDocument.mainScroll.removeEventListener('transitionend', msHandleTransitionEnd)
             }, 100)
-        })
-    })
+        }
+    }, { once: true })
 
-    dataDocument.mainScroll.style.transform = `translateY(-${scrollToHeight}px)`
+
+    dataDocument.mainScroll.style.transform = `translateY(${scrollToHeight - (scrollToHeight * 2)}px)`
 
 
     // dataDocument.mainScroll.addEventListener("transitionrun", function msHandleScroll(event) {
@@ -282,6 +292,7 @@ export default async function (apiData, dataDocument, t) {
             let startY, dist = 0
 
             const handleWheel = (event) => {
+                console.log("scrolling")
                 let isDontScroll = false
                 let eventPath = event.path || (event.composedPath && event.composedPath())
                 for (let j = 0; j < eventPath.length - 3; j++) {
@@ -368,8 +379,8 @@ export default async function (apiData, dataDocument, t) {
                 }
             }
             window.addEventListener('wheel', handleWheel);
-            window.addEventListener('touchstart', handleSlideStart, false)
-            window.addEventListener('touchend', handleSlideEnd, false)
+            window.addEventListener('touchstart', handleSlideStart)
+            window.addEventListener('touchend', handleSlideEnd)
         })
     }, 600)
 }
