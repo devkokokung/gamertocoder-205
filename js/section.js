@@ -211,6 +211,7 @@ const changeSection = (du, dataDocument, sectionNo, handleWheel, handleSlideStar
 
     // let isEemovedEvent = false, startScroll
 
+
     dataDocument.mainScroll.addEventListener("transitionstart", function msHandleTransitionStart(e) {
         let eventPath = e.path || (e.composedPath && e.composedPath())
         if (eventPath[0] == dataDocument.mainScroll) {
@@ -338,15 +339,17 @@ export default async function (apiData, dataDocument, t) {
             }
             const handleSlideEnd = (event) => {
                 let touchobj = event.changedTouches[0]
+                let eventPath = event.path || (event.composedPath && event.composedPath())
                 dist = touchobj.pageY - startY
 
                 let isDontScroll = false
-                for (let j = 0; j < event.path.length - 3; j++) {
-                    if (/(isDontScroll)/.test(typeof event.path[j].classList.value == 'undefined' ? "null" : event.path[j].classList.value)) {
+
+                for (let j = 0; j < eventPath.length - 3; j++) {
+                    if (/(isDontScroll)/.test(typeof eventPath[j].classList.value == 'undefined' ? "null" : eventPath[j].classList.value)) {
                         isDontScroll = true
                         break
                     }
-                    if (j == event.path.length - 4) {
+                    if (j == eventPath.length - 4) {
                         if (isDontScroll == false) {
                             if (dist > 0) {
                                 console.log("slide up")
@@ -362,7 +365,6 @@ export default async function (apiData, dataDocument, t) {
                                 }
                             } else if (dist < 0) {
                                 console.log("slide down")
-
                                 if (sectionNo == sectionNoMax) {
                                     sectionNo = sectionNoMax
                                 } else {
@@ -373,6 +375,7 @@ export default async function (apiData, dataDocument, t) {
                                     scrollYNow = changeSection("down", dataDocument, sectionNo, handleWheel, handleSlideStart, handleSlideEnd, scrollYNow)
                                     console.log(sectionNo)
                                 }
+                            } else {
                             }
                         }
                     }
