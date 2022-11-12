@@ -82,8 +82,8 @@ b {
 
 /* JS */
 .jsAnimatedOnTransformSlide {
-    transition: transform 1.12s cubic-bezier(0.6, 0, 0.4, 1);
-    transition-delay: 0.08s;
+    /* transition: transform 1.12s cubic-bezier(0.6, 0, 0.4, 1);
+    transition-delay: 0.08s; */
 }
 
 /* End JS */

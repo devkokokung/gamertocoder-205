@@ -1,6 +1,8 @@
 import animate from './animate.js'
 import gallery from './gallery.js'
 
+let transformTimeMs = 1120, transformTimeMsDf = 1120
+
 const sectionStory = {
     0: {
         afterMovein: [
@@ -157,12 +159,11 @@ async (apiData, dataDocument, t) => {
 
 }]
 
-const changeSection = (du, dataDocument, sectionNo, handleWheel, handleSlideStart, handleSlideEnd, scrollYNow) => {
+const changeSection = (du, dataDocument, sectionNo, handleWheel, handleSlideStart, handleSlideEnd, handleSlideMoving, scrollYNow) => {
     window.removeEventListener('wheel', handleWheel);
     window.removeEventListener('touchstart', handleSlideStart)
+    window.removeEventListener('touchmove', handleSlideMoving)
     window.removeEventListener('touchend', handleSlideEnd)
-
-    // console.log(document.body.getBoundingClientRect().height)
 
     let elePrev, eleNext, scrollToHeight
 
@@ -176,89 +177,61 @@ const changeSection = (du, dataDocument, sectionNo, handleWheel, handleSlideStar
         scrollToHeight = scrollYNow + eleNext.getBoundingClientRect().height
     }
 
-
-    // let scrollToHeight = document.body.getBoundingClientRect().height * sectionNo
-    // scrollToHeight = window.innerHeight * sectionNo
-
-    /* OLD CODE */
-    // dataDocument.mainContent.scrollTo({
-    //     top: scrollToHeight,
-    //     behavior: 'smooth'
-    // });
-
-    // let isEemovedEvent = false, startScroll
-
-    // dataDocument.mainContent.addEventListener("scroll", function msHandleScroll(event) {
-    //     let mathRoundScrollTop
-    //     if (isEemovedEvent == true) {
-    //         mathRoundScrollTop = scrollToHeight
-    //     } else {
-    //         mathRoundScrollTop = Math.round(dataDocument.mainContent.scrollTop)
-    //     }
-    //     startScroll = typeof startScroll == "undefined" ? mathRoundScrollTop : startScroll
-    //     animate.changeSection(event, elePrev, eleNext, du, window.innerHeight, startScroll > scrollToHeight ? startScroll - mathRoundScrollTop : mathRoundScrollTop - startScroll, isEemovedEvent)
-    //     // console.log(Math.round(dataDocument.mainScroll.scrollTop) + " : " + Math.round(scrollToHeight))
-    //     if (isEemovedEvent == false && mathRoundScrollTop >= Math.round(scrollToHeight - 4) && mathRoundScrollTop <= Math.round(scrollToHeight + 4)) {
-    //         isEemovedEvent = true
-    //         setTimeout(() => {
-    //             window.addEventListener('wheel', handleWheel);
-    //             window.addEventListener('touchstart', handleSlideStart)
-    //             window.addEventListener('touchend', handleSlideEnd)
-    //             dataDocument.mainContent.removeEventListener('scroll', msHandleScroll)
-    //         }, 100)
-    //     }
-    // }, false)
-
-    // let isEemovedEvent = false, startScroll
-
-
     dataDocument.mainScroll.addEventListener("transitionstart", function msHandleTransitionStart(e) {
         let eventPath = e.path || (e.composedPath && e.composedPath())
         if (eventPath[0] == dataDocument.mainScroll) {
-            animate.changeSection(du, elePrev, eleNext)
+            animate.changeSection(du, elePrev, eleNext, transformTimeMs)
             console.log("transition start")
             // dataDocument.mainScroll.removeEventListener('transitionstart', msHandleTransitionStart)
         }
     }, { once: true })
 
-    dataDocument.mainScroll.addEventListener("transitionend", function msHandleTransitionEnd(e) {
-        let eventPath = e.path || (e.composedPath && e.composedPath())
-        if (eventPath[0] == dataDocument.mainScroll) {
-            setTimeout(() => {
-                console.log("transition end")
-                window.addEventListener('wheel', handleWheel);
-                window.addEventListener('touchstart', handleSlideStart)
-                window.addEventListener('touchend', handleSlideEnd)
-                // dataDocument.mainScroll.removeEventListener('transitionend', msHandleTransitionEnd)
-            }, 100)
-        }
-    }, { once: true })
+    // dataDocument.mainScroll.addEventListener("transitionend", function msHandleTransitionEnd(e) {
+    // let eventPath = e.path || (e.composedPath && e.composedPath())
+    // if (eventPath[0] == dataDocument.mainScroll) {
+    setTimeout(() => {
+        console.log("transition end")
+        dataDocument.mainScroll.style.transition = ""
+        window.addEventListener('wheel', handleWheel);
+        window.addEventListener('touchstart', handleSlideStart)
+        window.addEventListener('touchmove', handleSlideMoving)
+        window.addEventListener('touchend', handleSlideEnd)
+        // dataDocument.mainScroll.removeEventListener('transitionend', msHandleTransitionEnd)
+    }, transformTimeMs + 100)
+    // }
+    // }, { once: true })
 
-
+    dataDocument.mainScroll.style.transition = `all ${transformTimeMs / 1000}s cubic-bezier(0, 0.4, 0.6, 1)`
     dataDocument.mainScroll.style.transform = `translateY(${scrollToHeight - (scrollToHeight * 2)}px)`
 
-
-    // dataDocument.mainScroll.addEventListener("transitionrun", function msHandleScroll(event) {
-    //     let mathRoundScrollTop
-    //     if (isEemovedEvent == true) {
-    //         mathRoundScrollTop = scrollToHeight
-    //     } else {
-    //         mathRoundScrollTop = Math.round(dataDocument.mainContent.scrollTop)
-    //     }
-    //     startScroll = typeof startScroll == "undefined" ? mathRoundScrollTop : startScroll
-    //     animate.changeSection(event, elePrev, eleNext, du, window.innerHeight, startScroll > scrollToHeight ? startScroll - mathRoundScrollTop : mathRoundScrollTop - startScroll, isEemovedEvent)
-    //     // console.log(Math.round(dataDocument.mainScroll.scrollTop) + " : " + Math.round(scrollToHeight))
-
-    //     dataDocument.mainScroll.addEventListener("transitionend", function msHandleTransitionEnd() => {
-
-    //     })
-    //     if (isEemovedEvent == false && mathRoundScrollTop >= Math.round(scrollToHeight - 4) && mathRoundScrollTop <= Math.round(scrollToHeight + 4)) {
-    //         isEemovedEvent = true
-
-    //     }
-    // }, false)
-
     return scrollToHeight
+}
+
+const movingSection = (scrollYNow, scrollYNew, dataDocument, sectionNo) => {
+    /*
+        (scrollYNew < 0) = scroll up
+        (scrollYNew >= 0) = scroll down
+    */
+
+    let eleNext, elePrev, du, isStop = false
+    let topHeight
+
+    scrollYNew = (scrollYNew / 100) * 77
+
+    if (scrollYNew < 0) {
+        eleNext = dataDocument.getSection[sectionNo - 1]
+        elePrev = dataDocument.getSection[sectionNo]
+        topHeight = eleNext.getBoundingClientRect().height
+        du = 'up'
+    } else if (scrollYNew >= 0) {
+        elePrev = dataDocument.getSection[sectionNo]
+        eleNext = dataDocument.getSection[sectionNo + 1]
+        topHeight = eleNext.getBoundingClientRect().height
+        du = 'down'
+    }
+
+    animate.movingSection(elePrev, eleNext, du, topHeight, scrollYNew, isStop)
+    dataDocument.mainScroll.style.transform = `translateY(-${scrollYNow + scrollYNew}px)`
 }
 
 const navbarShow = (dataDocument, isOpen) => {
@@ -271,6 +244,11 @@ const navbarShow = (dataDocument, isOpen) => {
 
 export default async function (apiData, dataDocument, t) {
     let scrollYNow = 0
+
+    let sectionNo = 0, sectionNoMin = 0, sectionNoMax = 4
+    let startY, dist = 0
+
+    let donotScroll = false
 
     gallery.init(document)
 
@@ -289,44 +267,37 @@ export default async function (apiData, dataDocument, t) {
             animate.textHeaderAnimate(dataDocument.getSection[0], ["PLAY", "CREATIVE", "ENJOY"])
             dataDocument.bodyScroll.removeEventListener("transitionend", bdHandleTransition)
 
-            let sectionNo = 0, sectionNoMin = 0, sectionNoMax = 4
-            let startY, dist = 0
-
             const handleWheel = (event) => {
                 console.log("scrolling")
-                let isDontScroll = false
                 let eventPath = event.path || (event.composedPath && event.composedPath())
                 for (let j = 0; j < eventPath.length - 3; j++) {
                     if (/(isDontScroll)/.test(typeof eventPath[j].classList.value == 'undefined' ? "null" : eventPath[j].classList.value)) {
-                        isDontScroll = true
                         break
                     }
                     if (j == eventPath.length - 4) {
-                        if (isDontScroll == false) {
-                            if (event.deltaY < 0) {
-                                console.log("scroll up")
-                                if (sectionNo == sectionNoMin) {
-                                    sectionNo = sectionNoMin
-                                } else {
-                                    if (sectionNo == 1) {
-                                        navbarShow(dataDocument, false)
-                                    }
-                                    sectionNo--
-                                    scrollYNow = changeSection("up", dataDocument, sectionNo, handleWheel, handleSlideStart, handleSlideEnd, scrollYNow)
-                                    console.log(sectionNo)
+                        if (event.deltaY < 0) {
+                            console.log("scroll up")
+                            if (sectionNo == sectionNoMin) {
+                                sectionNo = sectionNoMin
+                            } else {
+                                if (sectionNo == 1) {
+                                    navbarShow(dataDocument, false)
                                 }
-                            } else if (event.deltaY > 0) {
-                                console.log("scroll down")
-                                if (sectionNo == sectionNoMax) {
-                                    sectionNo = sectionNoMax
-                                } else {
-                                    if (sectionNo == 0) {
-                                        navbarShow(dataDocument, true)
-                                    }
-                                    sectionNo++
-                                    scrollYNow = changeSection("down", dataDocument, sectionNo, handleWheel, handleSlideStart, handleSlideEnd, scrollYNow)
-                                    console.log(sectionNo)
+                                sectionNo--
+                                scrollYNow = changeSection("up", dataDocument, sectionNo, handleWheel, handleSlideStart, handleSlideEnd, handleSlideMoving, scrollYNow)
+                                console.log(sectionNo)
+                            }
+                        } else if (event.deltaY > 0) {
+                            console.log("scroll down")
+                            if (sectionNo == sectionNoMax) {
+                                sectionNo = sectionNoMax
+                            } else {
+                                if (sectionNo == 0) {
+                                    navbarShow(dataDocument, true)
                                 }
+                                sectionNo++
+                                scrollYNow = changeSection("down", dataDocument, sectionNo, handleWheel, handleSlideStart, handleSlideEnd, handleSlideMoving, scrollYNow)
+                                console.log(sectionNo)
                             }
                         }
                     }
@@ -334,55 +305,86 @@ export default async function (apiData, dataDocument, t) {
             }
 
             const handleSlideStart = (event) => {
-                let touchobj = event.changedTouches[0]
-                startY = touchobj.pageY
-            }
-            const handleSlideEnd = (event) => {
-                let touchobj = event.changedTouches[0]
+                window.removeEventListener('wheel', handleWheel);
                 let eventPath = event.path || (event.composedPath && event.composedPath())
-                dist = touchobj.pageY - startY
-
-                let isDontScroll = false
 
                 for (let j = 0; j < eventPath.length - 3; j++) {
                     if (/(isDontScroll)/.test(typeof eventPath[j].classList.value == 'undefined' ? "null" : eventPath[j].classList.value)) {
-                        isDontScroll = true
-                        break
-                    }
-                    if (j == eventPath.length - 4) {
-                        if (isDontScroll == false) {
-                            if (dist > 0) {
-                                console.log("slide up")
-                                if (sectionNo == sectionNoMin) {
-                                    sectionNo = sectionNoMin
-                                } else {
-                                    if (sectionNo == 1) {
-                                        navbarShow(dataDocument, false)
-                                    }
-                                    sectionNo--
-                                    scrollYNow = changeSection("up", dataDocument, sectionNo, handleWheel, handleSlideStart, handleSlideEnd, scrollYNow)
-                                    console.log(sectionNo)
-                                }
-                            } else if (dist < 0) {
-                                console.log("slide down")
-                                if (sectionNo == sectionNoMax) {
-                                    sectionNo = sectionNoMax
-                                } else {
-                                    if (sectionNo == 0) {
-                                        navbarShow(dataDocument, true)
-                                    }
-                                    sectionNo++
-                                    scrollYNow = changeSection("down", dataDocument, sectionNo, handleWheel, handleSlideStart, handleSlideEnd, scrollYNow)
-                                    console.log(sectionNo)
-                                }
-                            } else {
-                            }
+                        donotScroll = true
+                    } else {
+                        if (j == eventPath.length - 4) {
+                            let touchobj = event.changedTouches[0]
+                            startY = touchobj.pageY
                         }
                     }
                 }
             }
+            const handleSlideMoving = (event) => {
+                if (donotScroll == false) {
+                    let touchobj = event.changedTouches[0]
+                    switch (sectionNo) {
+                        case sectionNoMin:
+                            if (touchobj.pageY < startY) {
+                                movingSection(scrollYNow, -touchobj.pageY + startY, dataDocument, sectionNo)
+                            } else {
+                                movingSection(scrollYNow, 0, dataDocument, sectionNo)
+                            }
+                            break;
+                        case sectionNoMax:
+                            console.log(sectionNoMax)
+                            if (touchobj.pageY > startY) {
+                                movingSection(scrollYNow, -touchobj.pageY + startY, dataDocument, sectionNo)
+                            } else {
+                                movingSection(scrollYNow, 0, dataDocument, sectionNo)
+                            }
+                            break;
+                        default:
+                            movingSection(scrollYNow, -touchobj.pageY + startY, dataDocument, sectionNo)
+                            break;
+                    }
+                }
+            }
+            const handleSlideEnd = (event) => {
+                if (donotScroll == false) {
+                    let touchobj = event.changedTouches[0]
+                    dist = touchobj.pageY - startY
+
+                    if (dist > 0) {
+                        console.log("slide up")
+                        if (sectionNo == sectionNoMin) {
+                            sectionNo = sectionNoMin
+                        } else {
+                            if (sectionNo == 1) {
+                                navbarShow(dataDocument, false)
+                            }
+                            sectionNo--
+                            scrollYNow = changeSection("up", dataDocument, sectionNo, handleWheel, handleSlideStart, handleSlideEnd, handleSlideMoving, scrollYNow)
+                            console.log(sectionNo)
+                        }
+                    } else if (dist < 0) {
+                        console.log("slide down")
+                        if (sectionNo == sectionNoMax) {
+                            sectionNo = sectionNoMax
+                        } else {
+                            if (sectionNo == 0) {
+                                navbarShow(dataDocument, true)
+                            }
+                            sectionNo++
+                            scrollYNow = changeSection("down", dataDocument, sectionNo, handleWheel, handleSlideStart, handleSlideEnd, handleSlideMoving, scrollYNow)
+                            console.log(sectionNo)
+                        }
+                    } else {
+                    }
+
+                } else {
+                    donotScroll = false
+                    window.addEventListener('wheel', handleWheel);
+                }
+
+            }
             window.addEventListener('wheel', handleWheel);
             window.addEventListener('touchstart', handleSlideStart)
+            window.addEventListener('touchmove', handleSlideMoving)
             window.addEventListener('touchend', handleSlideEnd)
         })
     }, 600)

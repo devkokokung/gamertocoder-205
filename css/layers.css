@@ -60,7 +60,7 @@
     height: 100%;
     overflow: visible;
     transform: translateY(0);
-    transition: all 1.12s cubic-bezier(0.6, 0, 0.4, 1);
+    /* transition: all 1.12s cubic-bezier(0.6, 0, 0.4, 1); */
 }
 
 /* .app_MainScroll.stop-scroll {

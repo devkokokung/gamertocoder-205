@@ -1,58 +1,57 @@
-// const changeSection = (event, elePrev, eleNext, du, topHeight, scrollNow, isStop) => {
-//     let topHeightPc
-//     if (isStop == true) {
-//         topHeightPc = 100
-//     } else {
-//         topHeightPc = Math.round((scrollNow * 100) / topHeight)
-//     }
-//     let topHeightPcOp = Math.abs(topHeightPc - 100)
+const movingSection = (elePrev, eleNext, du, topHeight, scrollNow, isStop) => {
+    let topHeightPc
+    if (isStop == true) {
+        topHeightPc = 100
+    } else {
+        topHeightPc = Math.round((scrollNow * 100) / topHeight)
+    }
+    let topHeightPcOp = Math.abs(topHeightPc - 100)
 
-//     let animatPrevList = elePrev.querySelectorAll(".jsAnimatedOnTransformSlide")
-//     let animatNextList = eleNext.querySelectorAll(".jsAnimatedOnTransformSlide")
+    let animatPrevList = elePrev.querySelectorAll(".jsAnimatedOnTransformSlide")
+    let animatNextList = eleNext.querySelectorAll(".jsAnimatedOnTransformSlide")
 
-//     // console.log(topHeightPc)
+    if (animatPrevList.length != 0) {
+        for (let i = 0; i < animatPrevList.length; i++) {
+            let attrBf = animatPrevList[i].getAttribute("data-bf-translateY-px")
+            // let attrAc = animatPrevList[i].getAttribute("data-active-translateY-px")
+            let attrAc = 0
+            let attrAf = animatPrevList[i].getAttribute("data-af-translateY-px")
 
-//     if (animatPrevList.length != 0) {
-//         for (let i = 0; i < animatPrevList.length; i++) {
-//             let attrBf = animatPrevList[i].getAttribute("data-bf-translateY-px")
-//             // let attrAc = animatPrevList[i].getAttribute("data-active-translateY-px")
-//             let attrAc = 0
-//             let attrAf = animatPrevList[i].getAttribute("data-af-translateY-px")
+            // if (du == "up") {
+            // animatPrevList[i].style.transform = `translateY(${((Math.abs(attrBf) - Math.abs(attrAc)) / (attrBf < 0 ? -100 : 100)) * topHeightPc}px)`
+            // } else if (du == "down") {
+            animatPrevList[i].style.transform = `translateY(${((Math.abs(attrAf) - Math.abs(attrAc)) / (attrAf < 0 ? -100 : 100)) * topHeightPc}px)`
+            // }
+        }
+    }
+    if (animatNextList.length != 0) {
+        for (let i = 0; i < animatNextList.length; i++) {
+            let attrBf = animatNextList[i].getAttribute("data-bf-translateY-px")
+            // let attrAc = animatNextList[i].getAttribute("data-active-translateY-px")
+            let attrAc = 0
+            let attrAf = animatNextList[i].getAttribute("data-af-translateY-px")
 
-//             if (du == "up") {
-//                 animatPrevList[i].style.transform = `translateY(${((Math.abs(attrBf) - Math.abs(attrAc)) / (attrBf < 0 ? -100 : 100)) * topHeightPc}px)`
-//             } else if (du == "down") {
-//                 animatPrevList[i].style.transform = `translateY(${((Math.abs(attrAf) - Math.abs(attrAc)) / (attrAf < 0 ? -100 : 100)) * topHeightPc}px)`
-//             }
-//         }
-//     }
-//     if (animatNextList.length != 0) {
-//         for (let i = 0; i < animatNextList.length; i++) {
-//             let attrBf = animatNextList[i].getAttribute("data-bf-translateY-px")
-//             // let attrAc = animatNextList[i].getAttribute("data-active-translateY-px")
-//             let attrAc = 0
-//             let attrAf = animatNextList[i].getAttribute("data-af-translateY-px")
+            if (du == "up") {
+                // if (attrAf >= attrAc) {
+                //     animatNextList[i].style.transform = `translateY(${Math.abs((((Math.abs(attrBf) - Math.abs(attrAc)) / (attrBf < 0 ? 100 : -100)) * topHeightPc) - Math.abs(attrBf))}px)`
+                // } else if (attrAf < attrAc) {
+                // animatNextList[i].style.transform = `translateY(${(-(((Math.abs(attrBf) - Math.abs(attrAc)) / (attrBf < 0 ? 100 : -100)) * topHeightPc) - Math.abs(attrBf))}px)`
+                animatNextList[i].style.transform = `translateY(${((((Math.abs(attrBf) - Math.abs(attrAc)) / (attrBf < 0 ? 100 : -100)) * topHeightPc) - Math.abs(attrBf))}px)`
+                // }
+                console.log(Math.abs((((Math.abs(attrBf) - Math.abs(attrAc)) / (attrBf < 0 ? 100 : -100)) * topHeightPc) - Math.abs(attrBf)))
+            } else if (du == "down") {
+                if (attrBf >= attrAc) {
+                    animatNextList[i].style.transform = `translateY(${Math.abs((((Math.abs(attrBf) - Math.abs(attrAc)) / (attrBf < 0 ? -100 : 100)) * topHeightPc) - Math.abs(attrBf))}px)`
+                } else if (attrBf < attrAc) {
+                    animatNextList[i].style.transform = `translateY(${((((Math.abs(attrBf) - Math.abs(attrAc)) / (attrBf < 0 ? 100 : -100)) * topHeightPc) - Math.abs(attrBf))}px)`
+                }
+            }
+        }
+    }
 
+}
 
-//             if (du == "up") {
-//                 if (attrAf >= attrAc) {
-//                     animatNextList[i].style.transform = `translateY(${Math.abs((((Math.abs(attrBf) - Math.abs(attrAc)) / (attrBf < 0 ? 100 : -100)) * topHeightPc) - Math.abs(attrBf))}px)`
-//                 } else if (attrAf < attrAc) {
-//                     animatNextList[i].style.transform = `translateY(${(-(((Math.abs(attrBf) - Math.abs(attrAc)) / (attrBf < 0 ? 100 : -100)) * topHeightPc) - Math.abs(attrBf))}px)`
-//                 }
-//             } else if (du == "down") {
-//                 if (attrBf >= attrAc) {
-//                     animatNextList[i].style.transform = `translateY(${Math.abs((((Math.abs(attrBf) - Math.abs(attrAc)) / (attrBf < 0 ? -100 : 100)) * topHeightPc) - Math.abs(attrBf))}px)`
-//                 } else if (attrBf < attrAc) {
-//                     animatNextList[i].style.transform = `translateY(${((((Math.abs(attrBf) - Math.abs(attrAc)) / (attrBf < 0 ? 100 : -100)) * topHeightPc) - Math.abs(attrBf))}px)`
-//                 }
-//             }
-//         }
-//     }
-
-// }
-
-const changeSection = (du, elePrev, eleNext) => {
+const changeSection = (du, elePrev, eleNext, transformTimeMs) => {
     let animatPrevList = elePrev.querySelectorAll(".jsAnimatedOnTransformSlide")
     let animatNextList = eleNext.querySelectorAll(".jsAnimatedOnTransformSlide")
 
@@ -61,6 +60,7 @@ const changeSection = (du, elePrev, eleNext) => {
             let attrBf = animatPrevList[i].getAttribute("data-bf-translateY-px")
             let attrAf = animatPrevList[i].getAttribute("data-af-translateY-px")
 
+            animatPrevList[i].style.transition = `all ${transformTimeMs / 1000}s cubic-bezier(0, 0.4, 0.6, 1)`
             if (du == "up") {
                 animatPrevList[i].style.transform = `translateY(${attrBf}px)`
             } else if (du == "down") {
@@ -72,10 +72,19 @@ const changeSection = (du, elePrev, eleNext) => {
     if (animatNextList.length != 0) {
         for (let i = 0; i < animatNextList.length; i++) {
             let attrAc = animatNextList[i].getAttribute("data-active-translateY-px")
-            animatNextList[i].style.transform = `translateY(${attrAc}px)`
+            animatNextList[i].style.transition = `all ${transformTimeMs / 1000}s cubic-bezier(0, 0.4, 0.6, 1)`
             animatNextList[i].style.transform = `translateY(${attrAc}px)`
         }
     }
+
+    setTimeout(() => {
+        animatPrevList.forEach(te => {
+            te.style.transition = ''
+        });
+        animatNextList.forEach(te => {
+            te.style.transition = ''
+        });
+    }, transformTimeMs)
 
 }
 
@@ -171,6 +180,7 @@ const textHeaderAnimate = async (docHeaderSection, keywords) => {
 
 export default {
     changeSection,
+    movingSection,
     initSection,
     textHeaderAnimate
 }
